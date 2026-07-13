@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Midnight Case - A Detective Investigation</title>
+    <title>The Midnight Case</title>
     <style>
         :root {
-            --bg-color: #0b0b0b;
-            --text-primary: #e0e0e0;
-            --text-accent: #8b0000; /* Deep Red */
+            --bg-color: #050505;
+            --text-primary: #d4d4d4;
+            --text-accent: #9c0000;
             --font-serif: 'Georgia', serif;
-            --font-sans: 'Arial', sans-serif;
         }
 
         * {
@@ -23,266 +22,226 @@
             background-color: var(--bg-color);
             color: var(--text-primary);
             font-family: var(--font-serif);
-            line-height: 1.6;
             overflow-x: hidden;
+            background: radial-gradient(circle at center, #150505 0%, #050505 80%);
+            min-height: 100vh;
         }
 
-        /* Fade-in Animation for Text */
-        .fade-in-text {
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 2s forwards;
+        /* Ambient Fog/Vignette Overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: max-gradient(rgba(0,0,0,0) 60%, rgba(0,0,0,0.9));
+            pointer-events: none;
+            z-index: 10;
         }
 
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        /* Seamless click-anywhere curtain to trigger audio bypassed natively */
+        #audio-trigger-layer {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 9999;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(5, 5, 5, 0.98);
+            transition: opacity 1.5s ease;
         }
 
-        /* Sections Layout */
+        .prompt-text {
+            font-size: 1.5rem;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: #444;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.3; }
+            50% { opacity: 0.8; color: var(--text-accent); }
+            100% { opacity: 0.3; }
+        }
+
+        /* Main Investigation Container */
         .container {
             max-width: 900px;
             margin: 0 auto;
-            padding: 40px 20px;
-        }
-
-        section {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
             padding: 60px 20px;
-            border-bottom: 1px solid #1a1a1a;
+            position: relative;
+            z-index: 2;
         }
 
-        /* Landing Page Section */
-        #landing {
-            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.95)), 
-                        url('https://github.com/Kamakshi-weby/lalala/blob/main/622d03f0-8c85-4901-91e1-22853a46c77d.jpg?raw=true') no-repeat center center;
-            background-size: cover;
-        }
-
-        h1 {
+        .header-title {
+            text-align: center;
             font-size: 3.5rem;
-            letter-spacing: 6px;
+            letter-spacing: 8px;
             text-transform: uppercase;
-            font-weight: 300;
             margin-bottom: 10px;
+            color: #fff;
+            text-shadow: 0 0 20px rgba(255,255,255,0.1);
         }
 
         .subtitle {
-            font-family: var(--font-sans);
-            color: var(--text-accent);
-            letter-spacing: 4px;
+            text-align: center;
             font-size: 0.9rem;
+            letter-spacing: 4px;
             text-transform: uppercase;
-            margin-bottom: 40px;
+            color: var(--text-accent);
+            margin-bottom: 80px;
         }
 
-        .btn {
-            background: transparent;
-            color: var(--text-primary);
-            border: 1px solid var(--text-accent);
-            padding: 15px 40px;
+        /* Typewriter text formatting */
+        .story-container {
+            font-size: 1.25rem;
+            line-height: 1.8;
+            letter-spacing: 0.5px;
+            white-space: pre-line; /* Preserves paragraph formatting */
+            border-left: 2px solid #1a1a1a;
+            padding-left: 25px;
+            margin-bottom: 60px;
+        }
+
+        /* Custom Typewriter Cursor Effect */
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 1.2rem;
+            background-color: var(--text-accent);
+            margin-left: 4px;
+            animation: blink 0.8s infinite;
+            vertical-align: middle;
+        }
+
+        @keyframes blink {
+            50% { background-color: transparent; }
+        }
+
+        /* Crime Scene Image layout styling */
+        .evidence-block {
+            margin: 40px 0;
+            border: 1px solid #1c0505;
+            padding: 15px;
+            background: #0a0202;
+            box-shadow: 0 0 30px rgba(0,0,0,0.8);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .evidence-block img {
+            width: 100%;
+            height: auto;
+            filter: grayscale(100%) brightness(70%) contrast(130%);
+            mix-blend-mode: luminosity;
+        }
+
+        /* Input field area */
+        .input-panel {
+            opacity: 0;
+            transition: opacity 2s ease;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .input-panel.visible {
+            opacity: 1;
+        }
+
+        .input-panel h3 {
             font-size: 1rem;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            letter-spacing: 3px;
+            color: var(--text-accent);
             margin-bottom: 20px;
         }
 
-        .btn:hover {
-            background-color: var(--text-accent);
-            box-shadow: 0 0 15px rgba(139, 0, 0, 0.6);
-        }
-
-        .warning-text {
-            font-family: var(--font-sans);
-            font-size: 0.75rem;
-            color: #555;
-            letter-spacing: 1px;
-        }
-
-        /* Story & Case Sections */
-        .case-number {
-            color: var(--text-accent);
-            font-family: var(--font-sans);
-            font-size: 0.8rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            margin-bottom: 15px;
-        }
-
-        h2 {
-            font-size: 2.5rem;
-            margin-bottom: 30px;
-            font-weight: 400;
-        }
-
-        p {
-            font-size: 1.1rem;
-            max-width: 700px;
-            color: #b0b0b0;
-            margin-bottom: 25px;
-            text-align: left;
-        }
-
-        /* Layout with Image side-by-side */
-        .content-wrap {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
-            gap: 40px;
-            margin-top: 30px;
-        }
-
-        .text-block {
-            flex: 1;
-            min-width: 300px;
-        }
-
-        .img-block {
-            flex: 1;
-            min-width: 300px;
-            border: 1px solid #222;
-            padding: 10px;
-            background-color: #111;
-        }
-
-        .img-block img {
-            width: 100%;
-            height: auto;
-            filter: grayscale(100%) contrast(120%);
-            display: block;
-        }
-
-        /* Verdict Form */
-        .verdict-box {
-            border: 1px solid #222;
-            padding: 40px;
-            background-color: #0d0d0d;
-            width: 100%;
-            max-width: 500px;
-            margin-top: 30px;
-        }
-
         input[type="text"] {
-            width: 100%;
             background: transparent;
             border: none;
-            border-bottom: 1px solid var(--text-accent);
+            border-bottom: 1px solid #333;
             color: #fff;
             padding: 10px;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             font-family: var(--font-serif);
-            margin-bottom: 30px;
+            width: 100%;
+            max-width: 400px;
             text-align: center;
             outline: none;
+            transition: border-color 0.5s;
         }
 
-        /* Content initially hidden until "Enter" is clicked */
-        #main-investigation {
-            display: none;
+        input[type="text"]:focus {
+            border-color: var(--text-accent);
         }
     </style>
 </head>
 <body>
 
-    <!-- Background Audio Component -->
-    <!-- Replace the src with your desired creepy piano audio URL stream or file path -->
-    <audio id="creepyPiano" loop>
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    <!-- Invisible trigger mask to fire audio on the very first user interaction natively -->
+    <div id="audio-trigger-layer" onclick="initiateScene()">
+        <div class="prompt-text">Click anywhere to begin inspection</div>
+    </div>
+
+    <!-- Direct raw source path for an atmospheric, ominous drone sound -->
+    <audio id="creepyAmbient" loop pre-load="auto">
+        <source src="https://assets.mixkit.co/active_storage/sfx/2568/2568-84.wav" type="audio/wav">
     </audio>
 
-    <!-- LANDING PAGE -->
-    <section id="landing">
-        <div class="fade-in-text">
-            <h1>The Midnight Case</h1>
-            <div class="subtitle">A Detective Investigation</div>
-            <button class="btn" onclick="startInvestigation()">Enter Investigation</button>
-            <div class="warning-text">⚠️ WARNING: Audio will play</div>
+    <div class="container">
+        <h1 class="header-title">The Midnight Case</h1>
+        <div class="subtitle">A Detective Investigation</div>
+
+        <!-- The typewriter script will targets this element to auto generate characters -->
+        <div class="story-container" id="typewriter-target"></div>
+
+        <!-- Dynamic Evidence Image Placement -->
+        <div class="evidence-block">
+            <img src="https://github.com/Kamakshi-weby/lalala/blob/main/622d03f0-8c85-4901-91e1-22853a46c77d.jpg?raw=true" alt="Case File Photo">
         </div>
-    </section>
 
-    <!-- MAIN WEBSITE CONTENT -->
-    <div id="main-investigation">
-        
-        <!-- SECTION 1: THE MIDNIGHT MURDER -->
-        <section class="container">
-            <div class="content-wrap">
-                <div class="text-block">
-                    <div class="case-number">Case File No. 1947</div>
-                    <h2>The Midnight Murder</h2>
-                    <p>When shadows dance at midnight and secrets whisper through the fog, only one detective dares to uncover the truth lurking in the darkness.</p>
-                </div>
-                <div class="img-block">
-                    <!-- Embedded the requested image layout -->
-                    <img src="https://github.com/Kamakshi-weby/lalala/blob/main/622d03f0-8c85-4901-91e1-22853a46c77d.jpg?raw=true" alt="Detective Scene">
-                </div>
-            </div>
-        </section>
-
-        <!-- SECTION 2: THE CASE UNFOLDS -->
-        <section class="container">
-            <div class="case-number">The Investigation</div>
-            <h2>The Case Unfolds</h2>
-            <p><strong>11:47 PM.</strong> The call came through like a death knell. A body discovered at the Ashford Manor—Victor Ashford, the wealthy industrialist, found dead in his study. Single gunshot wound to the chest. Time of death: approximately 11:00 PM.</p>
-            <p>When I arrived, the manor was thick with tension and expensive perfume. Four people remained in the house, each with their own secrets, their own motives.</p>
-        </section>
-
-        <!-- SECTION 3: THE SUSPECTS -->
-        <section class="container">
-            <div class="case-number">The Suspects</div>
-            <div style="text-align: left; width: 100%;">
-                <p><strong style="color: var(--text-accent);">Eleanor Ashford (The Widow):</strong> Cool, composed, draped in black silk. Her alibi: she was in the conservatory, tending to her orchids. But her hands trembled when she poured her tea.</p>
-                <p><strong style="color: var(--text-accent);">Marcus Chen (The Business Partner):</strong> Sharp suit, sharper tongue. He claimed he was in the library reviewing contracts. Documents scattered across the desk confirmed his story—but one page was missing.</p>
-            </div>
-        </section>
-
-        <!-- SECTION 4: THE VERDICT -->
-        <section class="container">
-            <h2>Your Verdict</h2>
-            <p style="text-align: center;">You've seen the evidence. You've heard the testimonies. Now, Detective, who do you believe committed this heinous crime?</p>
-            
-            <div class="verdict-box">
-                <div class="case-number" style="margin-bottom: 5px;">Type the Culprit's Name</div>
-                <input type="text" placeholder="Enter name..." id="culpritInput">
-                <button class="btn" style="width: 100%; margin-bottom: 0;" onclick="submitVerdict()">Submit Verdict</button>
-            </div>
-        </section>
+        <!-- Submission Box -->
+        <div class="input-panel" id="verdict-form">
+            <h3>Who committed this crime?</h3>
+            <input type="text" placeholder="Type the culprit's name..." autocomplete="off">
+        </div>
     </div>
 
     <script>
-        function startInvestigation() {
-            // Play the creepy background music loop
-            const audio = document.getElementById('creepyPiano');
-            audio.play().catch(function(error) {
-                console.log("Audio play blocked or encountered an issue: ", error);
-            });
+        // Expanded immersive narrative block text
+        const narrativeText = `CASE FILE NO. 1947: THE ASHFORD MANOR MURDER\n\n11:47 PM. The fog was rolling heavy off the harbor, thick enough to swallow a man whole. When the call cracked through the dispatch line, it sounded more like a death rattle than a notice.\n\nVictor Ashford—the city's premier industrial titan—was slumped inside his private quarters. A single cleanly placed bullet wound pierced his silk monogrammed vest. No signs of forced entry. The grandfather clock in the corner had shattered at exactly 11:00 PM, fixed in time.\n\nFour suspects remain isolated inside the main lounge downstairs, wrapped up tightly in their matching alibis and expensive venom:\n\n- ELEANOR ASHFORD (The Widow): Draped completely in black lace. She swears she was inside the conservatory clip-trimming orchids, yet her hands shook violently enough to rattle her porcelain teacup.\n\n- MARCUS CHEN (The Partner): Cold, calculating, eyes like split flint. Claims he was deep in ledger documentation, but the primary financial contract sheet has been neatly ripped from the binder binding.\n\nLook closely at the desk file image below. The clues are screaming inside the dark. Who among them struck the fatal match?`;
 
-            // Hide landing page smoothly and show the game content
-            document.getElementById('landing').style.display = 'none';
-            
-            const mainContent = document.getElementById('main-investigation');
-            mainContent.style.display = 'block';
-            
-            // Scroll smoothly to the top of the content
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+        let index = 0;
+        const speed = 45; // Speed adjustment in milliseconds per letter typed
+
+        function initiateScene() {
+            // Instantly hide overlay curtain
+            const curtain = document.getElementById('audio-trigger-layer');
+            curtain.style.opacity = '0';
+            setTimeout(() => curtain.remove(), 1500);
+
+            // Execute loop soundtrack immediately
+            const music = document.getElementById('creepyAmbient');
+            music.play().catch(e => console.log("Audio block bypass registered.", e));
+
+            // Run automated typewriter delivery sequence
+            typeWriter();
         }
 
-        function submitVerdict() {
-            const name = document.getElementById('culpritInput').value;
-            if(name.trim() !== "") {
-                alert("Verdict received, Detective. Case file updated with suspect: " + name);
+        function typeWriter() {
+            if (index < narrativeText.length) {
+                const target = document.getElementById("typewriter-target");
+                
+                // Append next string slice + keep clean flashing cursor block tracking text edge
+                target.innerHTML = narrativeText.substring(0, index + 1) + '<span class="cursor"></span>';
+                index++;
+                setTimeout(typeWriter, speed);
             } else {
-                alert("Please enter a suspect's name.");
+                // Remove trailing typing cursor when page sequence achieves complete execution
+                document.querySelector('.cursor').remove();
+                // Fade-in submission fields smoothly at end of reading event
+                document.getElementById('verdict-form').classList.add('visible');
             }
         }
     </script>
