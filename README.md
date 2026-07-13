@@ -275,7 +275,7 @@
         </header>
 
         <!-- Cinematic Noir Scene Placement (The Image Provided) -->
-        <img src="watermarked_img_2097412931571847981.png" alt="Detective Silas Vance in his smoke-filled Arkham Office" class="scenery-banner">
+        <img src="cb5638f2-af6e-484a-85ef-4141481ea0e3.jpg" alt="Detective Silas Vance in his smoke-filled Arkham Office" class="scenery-banner">
 
         <!-- Detective Dossier Segment -->
         <div class="dossier">
