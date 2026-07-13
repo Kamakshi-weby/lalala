@@ -1,22 +1,19 @@
-<!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>THE CRIMSON 404 DATASTREAM</title>
-    <!-- Avant-garde / High-End Design Typography -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syne:wght@700;800&family=Unbounded:wght@400;700&display=swap" rel="stylesheet">
-    
+    <title>The Whispering Shadow // Case File #773</title>
     <style>
         :root {
-            --bg-deep: #050508;
-            --neon-pink: #ff0055;
-            --cyber-cyan: #00f3ff;
-            --pure-white: #ffffff;
-            --muted-slate: #4a4a5a;
-            --text-glow: 0 0 20px rgba(255, 0, 85, 0.6);
+            --bg-color: #16191b;
+            --panel-color: #222629;
+            --accent-gold: #dfb76c;
+            --text-light: #e3e4e6;
+            --text-muted: #8a9094;
+            --crimson: #a93226;
+            --font-serif: 'Georgia', serif;
+            --font-sans: 'Courier New', Courier, monospace;
         }
 
         * {
@@ -26,408 +23,489 @@
         }
 
         body {
-            background-color: var(--bg-deep);
-            color: var(--pure-white);
-            font-family: 'Share Tech Mono', monospace;
+            background-color: var(--bg-color);
+            color: var(--text-light);
+            font-family: var(--font-serif);
+            line-height: 1.8;
+            letter-spacing: 0.02em;
             overflow-x: hidden;
-            line-height: 1.7;
+            background-image: 
+                radial-gradient(circle at 70% 20%, rgba(223, 183, 108, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 20% 80%, rgba(169, 50, 38, 0.03) 0%, transparent 40%);
         }
 
-        /* Ambient scanlines over the screen for a raw cinematic look */
-        body::before {
-            content: " ";
-            display: block;
+        /* Ambient Audio Control */
+        .audio-bar {
             position: fixed;
-            top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-            z-index: 9999;
-            background-size: 100% 3px, 6px 100%;
-            pointer-events: none;
-        }
-
-        /* Immersive Audio Centerpiece Control */
-        .audio-trigger {
-            position: fixed;
-            top: 30px;
-            right: 40px;
-            z-index: 5000;
-            background: rgba(0, 0, 0, 0.9);
-            border: 2px solid var(--cyber-cyan);
-            padding: 12px 24px;
-            color: var(--cyber-cyan);
-            font-family: 'Unbounded', sans-serif;
-            font-size: 0.75rem;
-            letter-spacing: 2px;
-            cursor: pointer;
-            box-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .audio-trigger:hover {
-            background: var(--cyber-cyan);
-            color: var(--bg-deep);
-            box-shadow: 0 0 25px var(--cyber-cyan);
-            transform: scale(1.05);
-        }
-
-        /* Navigation Architecture (2 Pages via display toggling) */
-        .viewport {
-            min-height: 100vh;
-            width: 100vw;
-            display: none;
-            padding: 100px 8%;
-        }
-
-        .viewport.active {
-            display: block;
-            animation: viewReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-
-        @keyframes viewReveal {
-            from { opacity: 0; transform: scale(0.98); filter: blur(10px); }
-            to { opacity: 1; transform: scale(1); filter: blur(0); }
-        }
-
-        /* --- PAGE 1: THE DOSSIER INTRO --- */
-        .hero-grid {
-            display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
-            gap: 80px;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(22, 25, 27, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(223, 183, 108, 0.15);
+            padding: 12px 30px;
+            display: flex;
+            justify-content: space-between;
             align-items: center;
-            min-height: 80vh;
+            z-index: 1000;
         }
 
-        .massive-header {
-            font-family: 'Syne', sans-serif;
-            font-weight: 800;
-            font-size: 5.5rem;
-            line-height: 0.95;
-            text-transform: uppercase;
-            letter-spacing: -3px;
-            margin-bottom: 30px;
-        }
-
-        .highlight-accent {
-            color: var(--neon-pink);
-            text-shadow: var(--text-glow);
-        }
-
-        .intro-blurb {
-            font-size: 1.25rem;
-            color: #b0b0cc;
-            margin-bottom: 40px;
-            max-width: 600px;
-        }
-
-        .case-image-holder {
-            position: relative;
-            border: 4px solid var(--pure-white);
-            box-shadow: 0 30px 60px rgba(0,0,0,0.8);
-            overflow: hidden;
-        }
-
-        .case-image-holder img {
-            width: 100%;
-            height: auto;
-            display: block;
-            filter: contrast(115%) brightness(90%);
-            transition: transform 0.5s ease;
-        }
-
-        .case-image-holder:hover img {
-            transform: scale(1.03);
-        }
-
-        /* --- PAGE 2: THE UNCONVENTIONAL STORY --- */
-        .story-wrapper {
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-
-        .story-meta {
-            font-family: 'Unbounded', sans-serif;
+        .status-indicator {
+            font-family: var(--font-sans);
             font-size: 0.8rem;
-            color: var(--cyber-cyan);
-            margin-bottom: 40px;
-            letter-spacing: 3px;
+            color: var(--accent-gold);
             text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        .narrative-columns {
-            font-size: 1.25rem;
-            color: #e2e2ee;
-            text-align: left;
-            margin-bottom: 80px;
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            background-color: var(--accent-gold);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
         }
 
-        .narrative-columns p {
-            margin-bottom: 35px;
-            position: relative;
-            padding-left: 20px;
-            border-left: 2px solid var(--muted-slate);
-        }
-
-        .narrative-columns strong {
-            color: var(--cyber-cyan);
-            font-family: 'Unbounded', sans-serif;
-            font-size: 1.05rem;
-        }
-
-        /* --- IMMERSIVE INTERACTIVE TEXT INPUT DEDUCTION --- */
-        .input-terminal-zone {
-            background: rgba(10, 10, 15, 0.6);
-            border: 2px solid var(--muted-slate);
-            padding: 60px;
-            position: relative;
-            margin-top: 100px;
-        }
-
-        .input-terminal-zone::before {
-            content: "SECURE INTEL RECOGNITION";
-            position: absolute;
-            top: -14px;
-            left: 40px;
-            background: var(--bg-deep);
-            padding: 0 15px;
-            font-family: 'Unbounded', sans-serif;
+        .audio-btn {
+            background: transparent;
+            border: 1px solid var(--accent-gold);
+            color: var(--accent-gold);
+            padding: 6px 16px;
+            font-family: var(--font-sans);
             font-size: 0.75rem;
-            color: var(--neon-pink);
-            letter-spacing: 2px;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
         }
 
-        .terminal-prompt-text {
-            font-size: 1.5rem;
-            margin-bottom: 30px;
-            font-family: 'Syne', sans-serif;
+        .audio-btn:hover {
+            background: var(--accent-gold);
+            color: var(--bg-color);
         }
 
-        .custom-typing-input {
-            width: 100%;
+        /* Navigation Tabs */
+        .nav-container {
+            max-width: 900px;
+            margin: 100px auto 20px auto;
+            display: flex;
+            gap: 10px;
+            padding: 0 20px;
+        }
+
+        .tab-btn {
             background: transparent;
             border: none;
-            border-bottom: 3px solid var(--pure-white);
-            color: var(--cyber-cyan);
-            font-family: 'Unbounded', sans-serif;
-            font-size: 2rem;
-            padding: 15px 0;
-            outline: none;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            transition: border-color 0.3s ease;
-        }
-
-        .custom-typing-input:focus {
-            border-color: var(--neon-pink);
-        }
-
-        .action-button {
-            background: transparent;
-            border: 2px solid var(--pure-white);
-            color: var(--pure-white);
-            font-family: 'Unbounded', sans-serif;
+            color: var(--text-muted);
+            font-family: var(--font-sans);
             font-size: 0.9rem;
-            padding: 18px 45px;
+            padding: 10px 20px;
             cursor: pointer;
-            margin-top: 40px;
-            letter-spacing: 2px;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.active {
+            color: var(--accent-gold);
+            border-bottom: 2px solid var(--accent-gold);
+        }
+
+        /* Layout & Pages */
+        .main-container {
+            max-width: 900px;
+            margin: 0 auto 100px auto;
+            padding: 20px;
+        }
+
+        .page {
+            display: none;
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Page 1 Elements: Dossier */
+        .profile-section {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 40px;
+            align-items: start;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .profile-section {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .portrait-frame {
+            border: 1px solid rgba(223, 183, 108, 0.2);
+            padding: 15px;
+            background: var(--panel-color);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            position: relative;
+        }
+
+        .portrait-frame::before {
+            content: 'EVIDENCE FILE #041';
+            position: absolute;
+            top: -10px;
+            left: 15px;
+            background: var(--bg-color);
+            padding: 0 8px;
+            font-family: var(--font-sans);
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+
+        .portrait-img {
+            width: 100%;
+            height: auto;
+            filter: grayscale(40%) contrast(110%);
+            display: block;
+            border: 1px solid rgba(0,0,0,0.4);
+        }
+
+        .dossier-details h1 {
+            font-size: 2.5rem;
+            color: var(--text-light);
+            font-weight: 400;
+            margin-bottom: 5px;
+            line-height: 1.2;
+        }
+
+        .dossier-subtitle {
+            font-family: var(--font-sans);
+            color: var(--accent-gold);
+            font-size: 0.85rem;
             text-transform: uppercase;
-            transition: all 0.3s;
+            margin-bottom: 30px;
+            display: block;
         }
 
-        .action-button:hover {
-            background: var(--pure-white);
-            color: var(--bg-deep);
-            box-shadow: 0 0 30px rgba(255,255,255,0.4);
+        .dossier-meta {
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding: 15px 0;
+            margin-bottom: 30px;
+            color: var(--text-muted);
         }
 
-        .output-response-matrix {
-            margin-top: 40px;
-            font-size: 1.3rem;
-            color: var(--neon-pink);
-            min-height: 60px;
-            font-family: 'Share Tech Mono', monospace;
-            letter-spacing: 1px;
+        .dossier-meta div {
+            margin-bottom: 5px;
         }
 
-        .cursor-blink::after {
-            content: '█';
-            animation: blockBlink 0.8s steps(2) infinite;
+        .dossier-meta strong {
+            color: var(--text-light);
         }
 
-        @keyframes blockBlink { 50% { opacity: 0; } }
+        .narrative-p {
+            margin-bottom: 20px;
+            color: #c8cbcb;
+            text-align: justify;
+        }
 
-        @media (max-width: 1024px) {
-            .hero-grid { grid-template-columns: 1fr; gap: 40px; }
-            .massive-header { font-size: 3.5rem; }
+        /* Page 2 Elements: Case File */
+        .case-header {
+            margin-bottom: 40px;
+            border-bottom: 1px solid rgba(223, 183, 108, 0.2);
+            padding-bottom: 20px;
+        }
+
+        .case-header h2 {
+            font-size: 2rem;
+            font-weight: 400;
+            margin-bottom: 5px;
+        }
+
+        .story-block {
+            background: rgba(34, 38, 41, 0.4);
+            border-left: 2px solid var(--accent-gold);
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        /* Interactive Guessing Terminal */
+        .terminal-box {
+            background: var(--panel-color);
+            border: 1px solid rgba(223, 183, 108, 0.2);
+            padding: 40px;
+            border-radius: 2px;
+            margin-top: 50px;
+            position: relative;
+        }
+
+        .terminal-box h3 {
+            font-family: var(--font-sans);
+            font-size: 1.1rem;
+            color: var(--accent-gold);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .input-wrapper {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 500px) {
+            .input-wrapper {
+                flex-direction: column;
+            }
+        }
+
+        .culprit-input {
+            flex: 1;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            color: var(--text-light);
+            font-family: var(--font-sans);
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .culprit-input:focus {
+            border-color: var(--accent-gold);
+        }
+
+        .submit-btn {
+            background: var(--accent-gold);
+            color: var(--bg-color);
+            border: none;
+            padding: 15px 30px;
+            font-family: var(--font-sans);
+            font-weight: bold;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: #c5a159;
+        }
+
+        .feedback-message {
+            margin-top: 20px;
+            font-family: var(--font-sans);
+            font-size: 0.9rem;
+            min-height: 24px;
+        }
+
+        .success { color: #52be80; }
+        .error { color: var(--crimson); }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.4; }
+            50% { opacity: 1; }
+            100% { opacity: 0.4; }
         }
     </style>
 </head>
 <body>
 
-    <!-- INTERACTIVE BACKGROUND SCARY SOUND ENGINE -->
-    <div class="audio-trigger" onclick="handleSoundEngine()">
-        SOUND SCENE: <span id="engine-status">OFF</span>
+    <!-- Ambient Sound System & Banner -->
+    <div class="audio-bar">
+        <div class="status-indicator">
+            <div class="status-dot"></div>
+            <span id="system-status">System: Ambient Suspense Offline</span>
+        </div>
+        <button class="audio-btn" id="audio-toggle" onclick="toggleAudio()">Initialize Audio</button>
     </div>
 
-    <!-- Web Audio API Custom Horror Synth Generator -->
+    <!-- Navigation Tabs -->
+    <nav class="nav-container">
+        <button class="tab-btn active" onclick="switchPage('dossier-page', this)">I. Investigator Profile</button>
+        <button class="tab-btn" onclick="switchPage('case-page', this)">II. Active Case File</button>
+    </nav>
+
+    <!-- Main Content Housing -->
+    <main class="main-container">
+
+        <!-- PAGE 1: DOSSIER & INTRO -->
+        <section id="dossier-page" class="page active">
+            <div class="profile-section">
+                <div class="portrait-frame">
+                    <img src="https://github.com/Kamakshi-weby/lalala/blob/main/622d03f0-8c85-4901-91e1-22853a46c77d.jpg?raw=true" alt="Lead Detective Portrait" class="portrait-img">
+                </div>
+                <div class="dossier-details">
+                    <h1>Detective Specialist</h1>
+                    <span class="dossier-subtitle">Department of Esoteric & High-Profile Crimes</span>
+                    
+                    <div class="dossier-meta">
+                        <div><strong>Current Assignment:</strong> The Blackwood Manor Heist</div>
+                        <div><strong>Status:</strong> Active Investigation</div>
+                        <div><strong>Methodology:</strong> Behavioral Analytics & Technical Forensics</div>
+                    </div>
+
+                    <p class="narrative-p">
+                        Some investigators follow the footprints in the mud; I look for the anomalies in the architecture. Operating within the intersection of shadows and absolute logic, my career has been defined by the cases the city preferred to forget. 
+                    </p>
+                    <p class="narrative-p">
+                        This archive serves as a repository for open investigations. The portrait on the left isn't just an identification card—it's a record of the last remaining specialist willing to look directly into the dark. Turn to the next file when you are ready to examine the evidence.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- PAGE 2: THE CASE FILE -->
+        <section id="case-page" class="page">
+            <div class="case-header">
+                <h2>Case File #773: The Midnight Sonata</h2>
+                <p class="dossier-subtitle">Location: Blackwood Estate // Timeline: 02:40 AM</p>
+            </div>
+
+            <div class="story-block">
+                <p class="narrative-p">
+                    The rain was hitting the stained-glass windows of Blackwood Estate with rhythmic cruelty. Inside, Lord Blackwood lay dead at his study desk, a single glass of untouched vintage wine sitting beside a torn piece of parchment reading: <em>"The debt is collected."</em>
+                </p>
+                <p class="narrative-p">
+                    Three individuals were present in the manor house during the storm, each anchoring an alibi that seemed just a fraction too polished to trust:
+                </p>
+                <p class="narrative-p">
+                    <strong>1. Sterling (The Butler):</strong> Claimed he was in the downstairs wine cellar securing the estate's inventory against the rising damp. Yet, his boots carried traces of fresh white orchid petals—flowers native exclusively to the second-story conservatory balcony overlooking the study window.
+                </p>
+                <p class="narrative-p">
+                    <strong>2. Julian (The Estranged Brother):</strong> Insisted he spent the entire night locked in the west-wing library translating rare classical texts. He possessed no motive, save for a freshly bound bank draft detailing massive gambling debits due by dawn.
+                </p>
+                <p class="narrative-p">
+                    <strong>3. Victoria (The Protege):</strong> Swore she was fast asleep in the guest chambers after taking a heavy dose of sleeping draught. Curiously, her silver pocket watch stopped precisely at 2:42 AM, the exact moment the master clock in the study was smashed during the struggle.
+                </p>
+            </div>
+
+            <!-- Culprit Submission Terminal -->
+            <div class="terminal-box">
+                <h3>Deduction Interface</h3>
+                <p class="narrative-p" style="font-size: 0.95rem; color: var(--text-muted);">
+                    Review the environmental indicators carefully. Who fractured the timeline? Type the name of the true culprit below.
+                </p>
+                
+                <div class="input-wrapper">
+                    <input type="text" id="culprit-input" class="culprit-input" placeholder="Type name here (e.g., Sterling, Julian, Victoria)..." autocomplete="off">
+                    <button class="submit-btn" onclick="verifyCulprit()">Verify Deduction</button>
+                </div>
+                
+                <div id="feedback" class="feedback-message"></div>
+            </div>
+        </section>
+
+    </main>
+
     <script>
-        let audioContext;
-        let mainDroneOsc, horrorLfoOsc, structuralGain, dynamicFilter;
-        let musicActive = false;
-
-        function initializeHorrorSoundtrack() {
-            audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        // Page Navigation Logic
+        function switchPage(pageId, button) {
+            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             
-            // Raw low-frequency drone oscillator
-            mainDroneOsc = audioContext.createOscillator();
-            mainDroneOsc.type = 'sawtooth';
-            mainDroneOsc.frequency.setValueAtTime(48.99, audioContext.currentTime); // Low G key for tension
-
-            // Secondary oscillator creating acoustic clash beats
-            horrorLfoOsc = audioContext.createOscillator();
-            horrorLfoOsc.type = 'triangle';
-            horrorLfoOsc.frequency.setValueAtTime(49.42, audioContext.currentTime); 
-
-            dynamicFilter = audioContext.createBiquadFilter();
-            dynamicFilter.type = 'lowpass';
-            dynamicFilter.frequency.setValueAtTime(130, audioContext.currentTime);
-            dynamicFilter.Q.setValueAtTime(9, audioCtx = audioContext.currentTime);
-
-            structuralGain = audioContext.createGain();
-            structuralGain.gain.setValueAtTime(0, audioContext.currentTime); // Initialize silent
-
-            // Routing audio flow graph
-            mainDroneOsc.connect(dynamicFilter);
-            horrorLfoOsc.connect(dynamicFilter);
-            dynamicFilter.connect(structuralGain);
-            structuralGain.connect(audioContext.destination);
-
-            mainDroneOsc.start();
-            horrorLfoOsc.start();
+            document.getElementById(pageId).classList.add('active');
+            button.classList.add('active');
         }
 
-        function handleSoundEngine() {
-            if (!audioContext) initializeHorrorSoundtrack();
-            const label = document.getElementById('engine-status');
+        // Culprit Verification Core
+        function verifyCulprit() {
+            const input = document.getElementById('culprit-input').value.trim().toLowerCase();
+            const feedback = document.getElementById('feedback');
 
-            if (!musicActive) {
-                audioContext.resume();
-                structuralGain.gain.setTargetAtTime(0.25, audioContext.currentTime, 0.4);
-                label.innerText = "ON (DISSONANT DRONE)";
-                label.style.color = "var(--neon-pink)";
-                musicActive = true;
+            if (input === 'sterling') {
+                feedback.className = "feedback-message success";
+                feedback.innerText = "✓ DEDUCTION CORRECT. The orchid petals on the boots exposed the path to the balcony window. Sterling has been detained.";
+            } else if (input === 'victoria' || input === 'julian') {
+                feedback.className = "feedback-message error";
+                feedback.innerText = "✗ INCORRECT. Alibi holds under preliminary pressure. Look closer at the physical tracking clues.";
+            } else if (input === "") {
+                feedback.className = "feedback-message error";
+                feedback.innerText = "⚠ Input terminal empty. Enter a suspect name.";
             } else {
-                structuralGain.gain.setTargetAtTime(0, audioContext.currentTime, 0.2);
-                label.innerText = "OFF";
-                label.style.color = "var(--cyber-cyan)";
-                musicActive = false;
+                feedback.className = "feedback-message error";
+                feedback.innerText = "✗ UNKNOWN SUBJECT. The suspect must be Sterling, Julian, or Victoria.";
             }
         }
-    </script>
 
+        // Web Audio API Custom Scary Background Synth (Built-in Audio)
+        let audioCtx = null;
+        let oscillator = null;
+        let filter = null;
+        let lfo = null;
+        let isPlaying = false;
 
-    <!-- ================= VIEWPORT PAGE 1: DOSSIER CORE ================= -->
-    <section id="view-1" class="viewport active">
-        <div class="hero-grid">
-            <div>
-                <h1 class="massive-header">THE CORRUPTION OF <span class="highlight-accent">ROOM 404</span></h1>
-                <p class="intro-blurb">
-                    The database has broken down. Lord Harrison was murdered inside a locked room, completely visible from the street layout below. You are looking directly through the terminal grid of the detective sent to recover the files.
-                </p>
-                <button class="action-button" onclick="changeViewport('view-2')">Deconstruct Evidence File</button>
-            </div>
+        function initAudioSystem() {
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
             
-            <div class="case-image-holder">
-                <!-- Direct GitHub image source integration -->
-                <img src="https://github.com/Kamakshi-weby/lalala/blob/main/622d03f0-8c85-4901-91e1-22853a46c77d.jpg?raw=true" alt="Crimson Manor 404 Case Scenario File">
-            </div>
-        </div>
-    </section>
-
-
-    <!-- ================= VIEWPORT PAGE 2: INTERROGATION CHRONICLES ================= -->
-    <section id="view-2" class="viewport">
-        <div class="story-wrapper">
-            <div class="story-meta">
-                <span>FILE PATH: CASE_LOGS // CRIMSON_MANOR_404</span>
-                <button class="action-button" style="padding: 6px 16px; margin: 0 0 0 30px; font-size: 0.65rem; vertical-align: middle;" onclick="changeViewport('view-1')">← BACK TO DESK</button>
-            </div>
-
-            <div class="narrative-columns">
-                <p>
-                    <strong>THE TIMELINE BREAK:</strong> The grandfather clock in the study was smashed down at precisely 11:15 PM, freezing the mechanical gear lines in place. Lord Harrison sat perfectly upright in his plush leather chair, staring across the wet pavement toward the cold storefronts. On his desk sat a partially drained crystal tumbler of rare vintage whiskey, a slow-burning cigar on an ash tray, and an old iron typewriter displaying a singular line: <em>"The error code manifests at midnight."</em>
-                </p>
-
-                <p>
-                    <strong>SUSPECT ONE (JULIAN BLACKWOOD):</strong> The antique merchant running the local bookshop directly across the street layout. Blackwood asserted he was cataloging inventory text books all night long, but a physical sweeping of his private desk revealed his primary inkwells were dry. Furthermore, trace remnants of dark conservatory clay were found stuck to the heels of his leather oxfords.
-                </p>
-
-                <p>
-                    <strong>SUSPECT TWO (LADY ELEANOR):</strong> Harrison’s sole surviving biological family member. Facing complete removal from the estate distribution ledger, she claimed she stayed sequestered in her room with literary classics. Yet, a physical verification of the locked grandfather clock room revealed a single snapped strand of expensive genuine pearl thread caught inside the primary brass escapement gear.
-                </p>
-
-                <p>
-                    <strong>SUSPECT THREE (DR. ALISTAIR VANCE):</strong> The attending family clinical physician. He documented his departure from the manor layout hours before the lightning storm peak. However, a forensic chemical verification of the whiskey remnants on the desk showed heavy saturation of a complex nerve blocking agent—a restricted molecule manufactured exclusively for Vance’s diagnostic kit.
-                </p>
-            </div>
-
-            <!-- KEYBOARD TYPING USER DEDUCTION TERMINAL -->
-            <div class="input-terminal-zone">
-                <h3 class="terminal-prompt-text">TYPE THE NAME OF THE CULPRIT TO EXECUTE VERDICT INTERCEPT:</h3>
-                
-                <input type="text" id="suspect-input" class="custom-typing-input" placeholder="Type name here..." autocomplete="off">
-                
-                <button class="action-button" style="border-color: var(--cyber-cyan); color: var(--cyber-cyan);" onclick="verifyCulpritData()">COMPUTE TARGET INTEL</button>
-                
-                <div class="output-response-matrix" id="terminal-output-panel"></div>
-            </div>
-        </div>
-    </section>
-
-
-    <!-- VIEW CONTROL & INTERACTIVE STRING TYPING ENGINE -->
-    <script>
-        function changeViewport(targetId) {
-            document.querySelectorAll('.viewport').forEach(view => view.classList.remove('active'));
-            document.getElementById(targetId).classList.add('active');
-            window.scrollTo(0,0);
+            // Create audio modules
+            oscillator = audioCtx.createOscillator();
+            filter = audioCtx.createBiquadFilter();
+            let gainNode = audioCtx.createGain();
+            
+            // Configure dark moody drone oscillator
+            oscillator.type = 'sawtooth';
+            oscillator.frequency.setValueAtTime(55, audioCtx.currentTime); // Low A pitch
+            
+            // Configure scary low-pass sweeping filter
+            filter.type = 'lowpass';
+            filter.frequency.setValueAtTime(200, audioCtx.currentTime);
+            filter.Q.setValueAtTime(5, audioCtx.currentTime);
+            
+            // LFO to modulate filter to give that eerie movie tension movement
+            lfo = audioCtx.createOscillator();
+            let lfoGain = audioCtx.createGain();
+            lfo.type = 'sine';
+            lfo.frequency.setValueAtTime(0.3, audioCtx.currentTime); // Very slow sweep
+            lfoGain.gain.setValueAtTime(120, audioCtx.currentTime);
+            
+            lfo.connect(lfoGain);
+            lfoGain.connect(filter.frequency);
+            
+            // Master Volume setting
+            gainNode.gain.setValueAtTime(0.12, audioCtx.currentTime); 
+            
+            // Connect chain
+            oscillator.connect(filter);
+            filter.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+            
+            // Start components
+            oscillator.start();
+            lfo.start();
         }
 
-        function verifyCulpritData() {
-            const userInput = document.getElementById('suspect-input').value.trim().toLowerCase();
-            const outputPanel = document.getElementById('terminal-output-panel');
-            
-            outputPanel.innerHTML = "";
-            outputPanel.classList.add('cursor-blink');
+        function toggleAudio() {
+            const btn = document.getElementById('audio-toggle');
+            const status = document.getElementById('system-status');
 
-            let resolutionString = "";
-
-            if (userInput.includes("vance") || userInput.includes("alistair")) {
-                resolutionString = ">> ACCESS GRANTED. CRIMINAL SEQUENCE CONFIRMED: Dr. Alistair Vance exploited his medical clearance to lace the crystal whiskey tumbler, executing the kill while attempting to utilize Eleanor's inheritance feud as structural misdirection. Datastream cleared.";
-            } else if (userInput.includes("blackwood") || userInput.includes("julian")) {
-                resolutionString = ">> ANALYSIS FLAGGED: Julian Blackwood was inside the mansion boundary layout stealing historical ledgers, but he lacked the chemical means to poison the target's glass. Re-examine the medical data vectors.";
-            } else if (userInput.includes("eleanor") || userInput.includes("lady")) {
-                resolutionString = ">> CORRUPTION DETECTED: Lady Eleanor did intentionally damage and jam the grandfather clock mechanism to shift the estimated window of death, but she did not prepare the toxin. Target escaped.";
-            } else if (userInput === "") {
-                resolutionString = ">> EXCEPTION: Input field empty. Type the name of your calculated suspect into the terminal to parse judgment data.";
-            } else {
-                resolutionString = ">> UNKNOWN IDENTITY EXCEPTION: The name typed does not match any authenticated profile inside the Crimson 404 security grid. Try analyzing the data file profiles again.";
-            }
-
-            // Typewriter aesthetic response generator
-            let counter = 0;
-            function printStream() {
-                if (counter < resolutionString.length) {
-                    outputPanel.innerHTML += resolutionString.charAt(counter);
-                    counter++;
-                    setTimeout(printStream, 25);
-                } else {
-                    outputPanel.classList.remove('cursor-blink');
+            if (!isPlaying) {
+                if (!audioCtx) {
+                    initAudioSystem();
+                } else if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
                 }
+                isPlaying = true;
+                btn.innerText = "Mute Ambiance";
+                status.innerText = "System: Ambient Tension Active";
+            } else {
+                if(audioCtx) {
+                    audioCtx.suspend();
+                }
+                isPlaying = false;
+                btn.innerText = "Initialize Audio";
+                status.innerText = "System: Ambient Suspense Offline";
             }
-            printStream();
         }
     </script>
-
 </body>
 </html>
